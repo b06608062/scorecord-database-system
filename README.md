@@ -9,11 +9,12 @@
 ## Run in local
 1. Download and Install
 ```
-git clone https://github.com/b06608062/1A2B.git
-cd ./1A2B
+git clone https://github.com/b06608062/scorecord-database-system.git
+cd ./scorecord-database-system
 yarn install
 ```
-2. Open two terminal windows, and go to ```/1A2B``` folder
-3. In one window, ```yarn server``` for **backend**
-4. The other window, run ```yarn start``` for **frontend**
-5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. Add .env file and Fill the MONGO_URL with mongodb url(You can refer to **.env.defaults**)
+4. Open two terminal windows, and go to ```/scorecord-database-system``` folder
+5. In one window, ```yarn server``` for **backend**
+6. The other window, run ```yarn start``` for **frontend**
+7. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
