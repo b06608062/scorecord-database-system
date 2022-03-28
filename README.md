@@ -9,7 +9,7 @@
 ![This is an image](https://github.com/b06608062/scorecord-database-system/blob/master/demo_image/截圖%202022-03-25%20下午7.55.08.png)
 
 ## Run in local
-1. Download and install.
+1. Download and install packages.
 ```
 git clone https://github.com/b06608062/scorecord-database-system.git
 cd ./scorecord-database-system
