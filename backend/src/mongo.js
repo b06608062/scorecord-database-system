@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import dotenv from "dotenv-defaults";
 
-// export default ()=>{
+// export default () => {
 //   dotenv.config();
 //   mongoose
 //   .connect(process.env.MONGO_URL, {
@@ -10,7 +10,7 @@ import dotenv from "dotenv-defaults";
 //   })
 //   .then((res) => console.log("mongo db connection created"))
 //   .catch((error) => console.log(error));
-// }
+// };
 
 function connectMongo() {
   dotenv.config();
@@ -23,6 +23,6 @@ function connectMongo() {
   db.once('open', function () {
     console.log('mongo connected!');
   });
-}
+};
 
-export default () => {connectMongo()};
+export default connectMongo;

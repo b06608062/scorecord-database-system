@@ -18,12 +18,12 @@ const StyledPaper = styled(Paper)`
   padding: 2em;
 `;
 
-const MyButton = styled.button`
+const Button = styled.button`
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 16px;
-`
+`;
 
 function App() {
   const { changeMode, changeTable } = useScoreCard();
@@ -31,13 +31,13 @@ function App() {
   return (
     <Wrapper>
       <StyledPaper elevation={3}>
-        <MyButton onClick={() => {changeMode(0);changeTable([]);}}>ADD</MyButton>
-        <MyButton onClick={() => {changeMode(1);changeTable([]);}}>QUERY</MyButton>
+        <Button onClick={() => {changeMode(0);changeTable([]);}}>ADD</Button>
+        <Button onClick={() => {changeMode(1);changeTable([]);}}>QUERY</Button>
         <Header />
         <Body />
       </StyledPaper>
     </Wrapper>
   );
-}
+};
 
 export default App;

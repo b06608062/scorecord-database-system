@@ -9,7 +9,7 @@ const Wrapper = styled.section`
   align-items: center;
   justify-content: center;
 
-  & button {
+  &button {
     margin-left: 3em;
   }
 `;
@@ -18,21 +18,21 @@ const Header = () => {
   const { addErrorMessage, clearAllMessage, changeTable } = useScoreCard();
 
   const handleClear = async () => {
-    try{
+    try {
       const {
         data: { message, isFailed },
       } = await axios.delete('/api/clear-db');
-      if(isFailed){
+      if (isFailed) {
         addErrorMessage(message);
-      }else{
+      } else {
         clearAllMessage(message);
         changeTable([]);
       };
-    }catch(e){
+    } catch (e) {
       alert(e);
-      addErrorMessage("Please check the server has opened");
+      addErrorMessage("Please check that the server has opened");
     };
-  };
+  }
 
   return (
     <Wrapper>

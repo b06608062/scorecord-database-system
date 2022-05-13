@@ -12,8 +12,8 @@ import { useStyles } from '../hooks';
 import axios from '../api';
 import { useScoreCard } from '../hooks/useScoreCard';
 import './Body.css';
-import up from '../img/up.png'
-import down from '../img/down.png'
+import up from '../img/up.png';
+import down from '../img/down.png';
 
 const Wrapper = styled.section`
   display: flex;
@@ -38,23 +38,34 @@ const ContentPaper = styled(Paper)`
   overflow: auto;
 `;
 
-const MyTable = styled.table`
+const Table = styled.table`
   align-items: center;
   justify-content: center;
   width: 100%;
   text-align: center;
   border-collapse: collapse;
   margin-top: 1rem;
-`
-const MyImg = styled.img`
+`;
+
+const Img = styled.img`
   cursor: pointer;
   height: 20px;
   width: 20px;
-`
+`;
 
 const Body = () => {
   const classes = useStyles();
-  const { addMessages, queryMessages, addCardMessage, addRegularMessage, addErrorMessage, mode, changeTable, table, reSort } = useScoreCard();
+  const { 
+    addMessages,
+    queryMessages,
+    mode,
+    table,
+    addCardMessage,
+    addRegularMessage,
+    addErrorMessage,
+    changeTable,
+    reSort
+  } = useScoreCard();
   const [name, setName] = useState('');
   const [subject, setSubject] = useState('');
   const [score, setScore] = useState(0);
@@ -64,10 +75,10 @@ const Body = () => {
 
   const handleChange = (func) => (event) => {
     func(event.target.value);
-  };
+  }
 
   const handleAdd = async () => {
-    try{
+    try {
       const {
         data: { message, card },
       } = await axios.post('/api/create-card', {
@@ -77,14 +88,14 @@ const Body = () => {
       });
       addCardMessage(message);
       changeTable(card, sortType);
-    }catch(e){
+    } catch (e) {
       alert(e);
-      addErrorMessage("Please check the server has opened");
+      addErrorMessage("Please check that the server has opened");
     };
-  };
+  }
 
   const handleQuery = async () => {
-    try{
+    try {
       const {
         data: { messages, message, card },
       } = await axios.get('/api/query-cards', {
@@ -93,115 +104,118 @@ const Body = () => {
           queryString,
         },
       });
-      if (!messages) addErrorMessage(message);
-      else {
+      if (!messages) {
+        addErrorMessage(message);
+      } else {
         addRegularMessage(messages);
         changeTable(card, sortType);
       }
-    }catch(e){
+    } catch (e) {
       alert(e);
-      addErrorMessage("Please check the server has opened");     
+      addErrorMessage("Please check that the server has opened");     
     }
-  };
+  }
 
   const handleSort = () => {
-    let newSortType = sortType==='increase'?'decrease':'increase'
+    let newSortType = sortType === 'increase' ? 'decrease' : 'increase';
     setSortType(newSortType);
     reSort(newSortType);
   }
 
-  const ADD = (      
-  <Row>
-    {/* Could use a form & a library for handling form data here such as Formik, but I don't really see the point... */}
-    <TextField
-      className={classes.input}
-      placeholder="Name"
-      value={name}
-      onChange={handleChange(setName)}
-    />
-    <TextField
-      className={classes.input}
-      placeholder="Subject"
-      style={{ width: 240 }}
-      value={subject}
-      onChange={handleChange(setSubject)}
-    />
-    <TextField
-      className={classes.input}
-      placeholder="Score"
-      value={score}
-      onChange={handleChange(setScore)}
-      type="number"
-    />
-    <Button
-      className={classes.button}
-      variant="contained"
-      color="primary"
-      disabled={!name || !subject}
-      onClick={handleAdd}
-    >
-      Add
-    </Button>
-  </Row>)
+  const ADD = (
+    <Row>
+      <TextField
+        className={classes.input}
+        placeholder="Name"
+        value={name}
+        onChange={handleChange(setName)}
+      />
+      <TextField
+        className={classes.input}
+        placeholder="Subject"
+        style={{ width: 240 }}
+        value={subject}
+        onChange={handleChange(setSubject)}
+      />
+      <TextField
+        className={classes.input}
+        placeholder="Score"
+        value={score}
+        onChange={handleChange(setScore)}
+        type="number"
+      />
+      <Button
+        className={classes.button}
+        variant="contained"
+        color="primary"
+        disabled={!name || !subject}
+        onClick={handleAdd}
+      >
+        Add
+      </Button>
+    </Row>
+  )
 
-  const QUERY = (      
-  <Row>
-    <StyledFormControl>
-      <FormControl component="fieldset">
-        <RadioGroup
-          row
-          value={queryType}
-          onChange={handleChange(setQueryType)}
-        >
-          <FormControlLabel
-            value="name"
-            control={<Radio color="primary" />}
-            label="Name"
-          />
-          <FormControlLabel
-            value="subject"
-            control={<Radio color="primary" />}
-            label="Subject"
-          />
-        </RadioGroup>
-      </FormControl>
-    </StyledFormControl>
-    <TextField
-      placeholder="Query string..."
-      value={queryString}
-      onChange={handleChange(setQueryString)}
-      style={{ flex: 1 }}
-    />
-    <Button
-      className={classes.button}
-      variant="contained"
-      color="primary"
-      disabled={!queryString}
-      onClick={handleQuery}
-    >
-      Query
-    </Button>
-  </Row>)
+  const QUERY = (
+    <Row>
+      <StyledFormControl>
+        <FormControl component="fieldset">
+          <RadioGroup
+            row
+            value={queryType}
+            onChange={handleChange(setQueryType)}
+          >
+            <FormControlLabel
+              value="name"
+              control={<Radio color="primary"/>}
+              label="Name"
+            />
+            <FormControlLabel
+              value="subject"
+              control={<Radio color="primary"/>}
+              label="Subject"
+            />
+          </RadioGroup>
+        </FormControl>
+      </StyledFormControl>
+      <TextField
+        placeholder="Query string..."
+        value={queryString}
+        onChange={handleChange(setQueryString)}
+        style={{ flex: 1 }}
+      />
+      <Button
+        className={classes.button}
+        variant="contained"
+        color="primary"
+        disabled={!queryString}
+        onClick={handleQuery}
+      >
+        Query
+      </Button>
+    </Row>
+  )
 
   return (
     <Wrapper>
-      {mode===0?ADD:QUERY}
+      {mode === 0 ? ADD : QUERY}
       <ContentPaper variant="outlined">
-        {mode===0?
-        addMessages.map((m, i) => (<Typography variant="body2" key={m + i} style={{ color: m.color }}>{m.message}</Typography>)):
+        {mode === 0 ?
+        addMessages.map((m, i) => (<Typography variant="body2" key={m + i} style={{ color: m.color }}>{m.message}</Typography>))
+        :
         queryMessages.map((m, i) => (<Typography variant="body2" key={m + i} style={{ color: m.color }}>{m.message}</Typography>))
-      }
+        }
       </ContentPaper>
-      <MyTable>
+      <Table>
         <thead>
         <tr>
           <th>Name</th>
           <th>Subject</th>
-          <th>Score  <span><MyImg src={sortType==='increase'?down:up} onClick={handleSort}></MyImg></span></th>
+          <th>Score  <span><Img src={sortType === 'increase' ? down : up} onClick={handleSort}></Img></span></th>
         </tr>
         </thead>
         <tbody>
-          {table.map((e, i) =>(
+          {table.map((e, i) => (
             <tr key={i}>
             <td>{e.name}</td>
             <td>{e.subject}</td>
@@ -209,7 +223,7 @@ const Body = () => {
             </tr>
           ))}
         </tbody>
-      </MyTable>
+      </Table>
     </Wrapper>
   );
 };

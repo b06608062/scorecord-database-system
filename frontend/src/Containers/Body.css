@@ -2,6 +2,7 @@ table, th, td {
     padding: 5px;
     border: 1px solid black;
 }
-thead{
+
+thead {
     background: #80808080;
 }
