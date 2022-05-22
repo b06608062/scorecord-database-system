@@ -217,9 +217,9 @@ const Body = () => {
         <tbody>
           {table.map((e, i) => (
             <tr key={i}>
-            <td>{e.name}</td>
-            <td>{e.subject}</td>
-            <td>{e.score}</td>
+              <td>{e.name}</td>
+              <td>{e.subject}</td>
+              <td>{e.score}</td>
             </tr>
           ))}
         </tbody>
