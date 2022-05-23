@@ -9,7 +9,7 @@ const Wrapper = styled.section`
   align-items: center;
   justify-content: center;
 
-  &button {
+  & button {
     margin-left: 3em;
   }
 `;
